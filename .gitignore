@@ -1,1 +1,4 @@
 .env
+
+#macOS specific files created by os/finder
+.DS_Store
