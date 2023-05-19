@@ -1,0 +1,127 @@
+//Maße sind in mm
+//Variablen:
+//Gehäuse
+gBreite=42;
+gLaenge=80;
+gHoehe=30;
+gTX=40;
+gTY=80;
+
+//Innenraum
+iBreite=gBreite-4;
+iLaenge=gLaenge-4;
+iHoehe=gHoehe+2;
+iTX=gTX;
+iTY=gTY;
+
+//Kamera
+kRadius=4.2;
+kTranslateX=35;
+
+//Lampe
+lRadius=4;
+
+//LED
+LEDtranslateX=30;
+LEDtranslateY=45;
+LEDRadius=1;
+
+//Deckel
+dBreite=gBreite-5;
+dLaenge=gLaenge-5;
+dHoehe=2;
+dTX=40;
+dTY=80;
+dTZ=15;
+
+//Öffnung
+oeBreite=5;
+oeLaenge=10;
+oeHoehe=10;
+oeTX=20;
+oeTY=80;
+oeTZ=18;
+
+//Magnet
+mBreite=5;
+mLaenge=10;
+mHoehe=2;
+mTX=21.5;
+mTY=80;
+mTZ=12;
+
+//Halterung 1&2
+h1Breite=5;
+h1Laenge=10;
+h1Hoehe=1.5;
+h1TX=57;
+h1TY=100;
+h1TZ=12.5;
+
+h2Breite=5;
+h2Laenge=10;
+h2Hoehe=1.5;
+h2TX=57;
+h2TY=60;
+h2TZ=12.5;
+
+//Aussparung Halterung
+aBreite=3;
+aLaenge=5;
+aHoehe=3;
+aTX=57;
+a1TY=100;
+aTZ=12.5;
+a2TY=60;
+
+difference(){
+    //Gehäuse
+    translate( [gTX,gTY,0] ) cube([gBreite,gLaenge,gHoehe], true);
+    
+     //Innenraum
+    translate( [iTX,iTY,2] ) cube([iBreite,iLaenge,iHoehe], true, $fn=100);
+    
+    //Kamera
+    rotate(-90,[50,0,0]) translate( [kTranslateX,0,25] ) cylinder (h = 40, r=kRadius, $fn=100);
+    
+    //Lampe
+    //rotate(-90,[50,0,0]) translate( [50,0,0] )cylinder (h = 40, r=lRadius, $fn=100);
+    
+    //Mikro
+    //rotate(-90,[50,0,0]) translate( [65,0,0] ) cylinder (h = 10, r=2, $fn=100);
+    
+    //LED
+    rotate(-90,[50,0,0]) translate( [LEDtranslateX,LEDtranslateY,20] ) cylinder (h = 10, r=LEDRadius, $fn=100);
+    
+    //Für den Deckel
+    translate( [dTX,dTY,dTZ] ) cube([dBreite,dLaenge,dHoehe], true);
+    
+    //Lücke zum öffnen
+    translate( [oeTX,oeTY,oeTZ] ) cube([oeBreite,oeLaenge,oeHoehe], true);
+    
+     //USB
+    translate( [40,117,0] ) cube([11,13,7], true);
+}
+
+   
+//Deckel, Klappe
+//translate( [40,80,14.5] ) cube([73,143,1], true);
+
+//Stop für Verschluss (Magnet)
+difference(){
+    translate( [mTX,mTY,mTZ] ) cube([mBreite,mLaenge,mHoehe], true);
+    
+    translate( [mTX,mTY,mTZ+1] ) cylinder (h = 1, r=4.5, $fn=100);
+}
+
+//Halterungen zum öffnen
+difference(){
+    translate( [h1TX,h1TY,h1TZ] ) cube([h1Breite,h1Laenge,h1Hoehe], true);
+    
+    translate( [aTX,a1TY,aTZ] ) cube([aBreite,aLaenge,aHoehe], true);
+}
+difference(){
+    translate( [h2TX, h2TY, h2TZ] ) cube([h2Breite,h2Laenge,h2Hoehe], true);
+    
+    translate( [aTX,a2TY,aTZ] ) cube([aBreite,aLaenge,aHoehe], true);
+}
