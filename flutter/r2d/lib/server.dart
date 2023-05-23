@@ -6,7 +6,7 @@ class Server {
   void startServer() {
     VideoStreamWidgetState streamWidget = VideoStreamWidgetState();
 
-    const url = "192.168.43.233";
+    const url = "192.168.43.111";
     const port = 8080;
 
     HttpServer.bind(url, port).then((server) {
