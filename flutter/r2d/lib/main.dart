@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'server.dart';
+import 'StreamWidget.dart';
+
 void main() {
+  // start the websocket server when the app is launched
+  Server server = Server();
+  server.startServer();
+
   runApp(const MyApp());
 }
 
@@ -31,24 +38,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-            Text("Hello World!",
-            style: TextStyle(
+            Text(
+              "Hello World!",
+              style: TextStyle(
                 fontSize: 25.0,
               ),
             ),
+            VideoStreamWidget(),
           ],
         ),
       ),
