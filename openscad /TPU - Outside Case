@@ -1,0 +1,16 @@
+//Outside Case
+difference(){
+    translate( [40,80,0] ) cube([45,83,33], true);
+    translate( [40,80,0] ) cube([43,81,31], true, $fn=100);
+    translate( [40,82,0] ) cube([43,81,31], true, $fn=100);
+    rotate(-90,[50,0,0]) translate( [35,0,25] ) cylinder (h = 40, r=4.2, $fn=100);
+}
+
+//Fixation
+difference(){
+    rotate(-90,[50,0,0]) translate( [40,20,40] ) cylinder (h = 80, r=6.5, $fn=100);
+    rotate(-90,[50,0,0]) translate( [40,20,38] ) cylinder (h = 85, r=3.5, $fn=100);
+    //rotate(-90,[50,0,0]) translate( [33,20,38] ) cylinder (h = 85, r=2, $fn=100);
+    rotate(-90,[50,0,0]) translate( [45,20,38] ) cube ( [4,1,180] ,true, $fn=100);
+    translate( [40,80,0] ) cube([43.5,81.5,31.5], true, $fn=100);
+}

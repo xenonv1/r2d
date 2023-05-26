@@ -1,0 +1,6 @@
+//Cover
+translate( [40,80,0] ) cube([37,75,1.2], true, $fn=100);
+
+//Holdings
+rotate(-45,[0,0,0]) translate( [57,60,2] ) cube([1.5,4.5,4.5], true);
+translate( [57,100,2] ) cube([1.5,4.5,4.5], true);
