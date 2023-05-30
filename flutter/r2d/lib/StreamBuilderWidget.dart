@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import "package:flutter/material.dart";
 import "dart:typed_data";
 import 'package:web_socket_channel/io.dart';
@@ -11,39 +13,64 @@ class StreamBuilderWidget extends StatefulWidget {
 }
 
 class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
+  late StreamController<Uint8List> _controller;
+  late IOWebSocketChannel _channel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = StreamController<Uint8List>();
+    _channel = IOWebSocketChannel.connect('ws://192.168.4.1:8888');
+
+    _channel.stream.listen((dynamic data) {
+      if (data is Uint8List) {
+        print("receiving stream");
+        print(data.runtimeType);
+        print(data);
+        _controller.add(data);
+        return;
+      }
+
+      print("wrong type");
+      return;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Uint8List>(
+        stream: _controller.stream,
         builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
-      List<Widget> children;
+          List<Widget> children;
 
-      if (!snapshot.hasData) {
-        children = const [
-          Icon(
-            Icons.error_outline,
-            color: Colors.red,
-          ),
-          Text("There is no data to be displayed"),
-        ];
-      } else if (!snapshot.hasError) {
-        children = const [
-          Icon(
-            Icons.error_outline,
-            color: Colors.red,
-          ),
-          Text("An error occured while loading the data"),
-        ];
-      } else {
-        Uint8List imgData = snapshot.data!;
+          if (!snapshot.hasData) {
+            children = const [
+              Icon(
+                Icons.error_outline,
+                color: Colors.red,
+              ),
+              Text("There is no data to be displayed"),
+            ];
+          } else if (!snapshot.hasError) {
+            children = const [
+              Icon(
+                Icons.error_outline,
+                color: Colors.red,
+              ),
+              Text("An error occured while loading the data"),
+            ];
+          } else {
+            Uint8List imgData = snapshot.data!;
 
-        children = [
-          Image.memory(imgData),
-        ];
-      }
+            children = [
+              Image.memory(imgData),
+            ];
+          }
 
-      return Column(
-        children: children,
-      );
-    });
+          return Column(
+            children: children,
+          );
+        });
   }
 }
