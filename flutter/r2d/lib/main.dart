@@ -49,12 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-            Text(
-              "Hello World!",
-              style: TextStyle(
-                fontSize: 25.0,
-              ),
-            ),
             StreamBuilderWidget(),
             //VideoStreamWidget(), check if it is also possible to use the esp as a server
           ],

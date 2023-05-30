@@ -12,6 +12,8 @@ class StreamBuilderWidget extends StatefulWidget {
   State<StreamBuilderWidget> createState() => _StreamBuilderWidgetState();
 }
 
+late Uint8List lastImageShown;
+
 class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
   late StreamController<Uint8List> _controller;
   late IOWebSocketChannel _channel;
@@ -59,9 +61,13 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
             ];
           } else {
             Uint8List imgData = snapshot.data!;
+            lastImageShown = snapshot.data!;
 
             children = [
-              Image.memory(imgData),
+              FadeInImage(
+                placeholder: Image.memory(lastImageShown).image,
+                 image: Image.memory(imgData).image,
+              ),
             ];
           }
 
