@@ -25,9 +25,6 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
 
     _channel.stream.listen((dynamic data) {
       if (data is Uint8List) {
-        print("receiving stream");
-        print(data.runtimeType);
-        print(data);
         _controller.add(data);
         return;
       }
@@ -44,7 +41,7 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
         builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
           List<Widget> children;
 
-          if (!snapshot.hasData) {
+          if (snapshot.hasData == false) {
             children = const [
               Icon(
                 Icons.error_outline,
@@ -52,7 +49,7 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
               ),
               Text("There is no data to be displayed"),
             ];
-          } else if (!snapshot.hasError) {
+          } else if (snapshot.hasError) {
             children = const [
               Icon(
                 Icons.error_outline,
