@@ -6,7 +6,7 @@ class Server {
   void startServer() {
     VideoStreamWidgetState streamWidget = VideoStreamWidgetState();
 
-    const url = "192.168.43.111";
+    const url = "192.168.43.233";
     const port = 8080;
 
     HttpServer.bind(url, port).then((server) {
@@ -16,7 +16,6 @@ class Server {
         if (WebSocketTransformer.isUpgradeRequest(req)) {
           WebSocketTransformer.upgrade(req).then((WebSocket webSocket) {
             webSocket.listen((dynamic message) {
-              print(message.runtimeType);
               streamWidget.setImage(message);
             });
           });

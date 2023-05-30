@@ -6,8 +6,8 @@ import "StreamBuilderWidget.dart";
 
 void main() {
   // start the websocket server when the app is launched (no need for second version)
-  //Server server = Server();
-  //server.startServer();
+  Server server = Server();
+  server.startServer();
 
   runApp(const MyApp());
 }
@@ -49,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-            StreamBuilderWidget(),
-            //VideoStreamWidget(), check if it is also possible to use the esp as a server
+            //StreamBuilderWidget(),
+            VideoStreamWidget(), 
           ],
         ),
       ),
