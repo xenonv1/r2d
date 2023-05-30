@@ -4,9 +4,9 @@ import 'server.dart';
 import 'StreamWidget.dart';
 
 void main() {
-  // start the websocket server when the app is launched
-  Server server = Server();
-  server.startServer();
+  // start the websocket server when the app is launched (no need for second version)
+  //Server server = Server();
+  //server.startServer();
 
   runApp(const MyApp());
 }
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontSize: 25.0,
               ),
             ),
-            VideoStreamWidget(),
+            //VideoStreamWidget(), check if it is also possible to use the esp as a server
           ],
         ),
       ),
