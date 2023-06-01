@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import 'GoRouterRoute.dart';
 import 'server.dart';
 import 'StreamWidget.dart';
 import 'StreamBuilderWidget.dart';
@@ -13,19 +15,34 @@ void main() {
   runApp(const MyApp());
 }
 
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const MyHomePage(title: 'R2D-App');
+        }),
+    GoRoute(
+        path: '/go-router-screen',
+        builder: (BuildContext context, GoRouterState state) {
+          return const GoRouterRoute();
+        })
+  ],
+);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _router,
       title: 'R2D App',
       theme: ThemeData(
         // This is the theme of your application.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'R2D App'),
     );
   }
 }
@@ -52,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             //StreamBuilderWidget(),
-            VideoStreamWidget(), 
+            VideoStreamWidget(),
           ],
         ),
       ),
