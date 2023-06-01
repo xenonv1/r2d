@@ -3,10 +3,11 @@ import "dart:io";
 import "package:r2d/StreamWidget.dart";
 
 class Server {
+
   void startServer() {
     VideoStreamWidgetState streamWidget = VideoStreamWidgetState();
 
-    const url = "192.168.43.233";
+    String url = "127.0.0.1";
     const port = 8080;
 
     HttpServer.bind(url, port).then((server) {

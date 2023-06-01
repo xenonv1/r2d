@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'server.dart';
 import 'StreamWidget.dart';
-import "StreamBuilderWidget.dart";
+import 'StreamBuilderWidget.dart';
+import 'DrawerWidget.dart';
 
 void main() {
   // start the websocket server when the app is launched (no need for second version)
@@ -45,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: DrawerWidget(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
