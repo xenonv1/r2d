@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'GoRouterRoute.dart';
 import 'server.dart';
 import 'StreamWidget.dart';
 import 'StreamBuilderWidget.dart';
 import 'DrawerWidget.dart';
+import 'ObjectClassificationWidget.dart';
+import 'AudioRecorderWidget.dart';
+import 'CameraWidget.dart';
+import 'TextRecognitionWidget.dart';
 
 void main() {
   // start the websocket server when the app is launched (no need for second version)
@@ -23,10 +26,25 @@ final GoRouter _router = GoRouter(
           return const MyHomePage(title: 'R2D-App');
         }),
     GoRoute(
-        path: '/go-router-screen',
+        path: '/object-classification',
         builder: (BuildContext context, GoRouterState state) {
-          return const GoRouterRoute();
-        })
+          return const ObjectClassificationWidget();
+        }),
+    GoRoute(
+        path: '/audio-recorder',
+        builder: (BuildContext context, GoRouterState state) {
+          return const AudioRecorderWidget();
+        }),
+    GoRoute(
+        path: '/camera',
+        builder: (BuildContext context, GoRouterState state) {
+          return const CameraWidget();
+        }),
+    GoRoute(
+        path: '/ocr',
+        builder: (BuildContext context, GoRouterState state) {
+          return const TextRecognitionWidget();
+        }), 
   ],
 );
 
@@ -63,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
