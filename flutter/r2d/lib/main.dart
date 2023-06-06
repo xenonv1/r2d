@@ -12,8 +12,8 @@ import 'TextRecognitionWidget.dart';
 
 void main() {
   // start the websocket server when the app is launched (no need for second version)
-  Server server = Server();
-  server.startServer();
+  // Server server = Server();
+  // server.startServer();
 
   runApp(const MyApp());
 }
@@ -44,7 +44,7 @@ final GoRouter _router = GoRouter(
         path: '/ocr',
         builder: (BuildContext context, GoRouterState state) {
           return const TextRecognitionWidget();
-        }), 
+        }),
   ],
 );
 
@@ -86,8 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-            //StreamBuilderWidget(),
-            VideoStreamWidget(),
+            StreamBuilderWidget(),
+            //VideoStreamWidget(),
           ],
         ),
       ),
