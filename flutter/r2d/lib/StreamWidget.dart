@@ -35,7 +35,7 @@ class VideoStreamWidgetState extends State<VideoStreamWidget> {
       setState(() {
         imageBytes = images[images.length - 1];
       });
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
     }
   }
 
@@ -45,7 +45,7 @@ class VideoStreamWidgetState extends State<VideoStreamWidget> {
       children: [
           images.isEmpty
           ? const CircularProgressIndicator()
-          : Image.memory(imageBytes),
+          : FadeInImage(placeholder: Image.memory(images[images.length - 1]).image, image: Image.memory(imageBytes).image),
           ElevatedButton(
             onPressed: () => updateImage(), 
             child: const Text("Start stream")
