@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import "package:flutter/material.dart";
-import "dart:typed_data";
+import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
 
 class StreamBuilderWidget extends StatefulWidget {
   const StreamBuilderWidget({super.key});
@@ -31,7 +30,7 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
         return;
       }
 
-      print("wrong type");
+      print('wrong type');
       return;
     });
   }
@@ -49,7 +48,7 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
                 Icons.error_outline,
                 color: Colors.red,
               ),
-              Text("There is no data to be displayed"),
+              Text('There is no data to be displayed'),
             ];
           } else if (snapshot.hasError) {
             children = const [
@@ -57,7 +56,7 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
                 Icons.error_outline,
                 color: Colors.red,
               ),
-              Text("An error occured while loading the data"),
+              Text('An error occured while loading the data'),
             ];
           } else {
             Uint8List imgData = snapshot.data!;

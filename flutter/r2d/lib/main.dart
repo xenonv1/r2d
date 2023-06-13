@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import 'server.dart';
 import 'StreamWidget.dart';
-import 'StreamBuilderWidget.dart';
 import 'DrawerWidget.dart';
 import 'ObjectClassificationWidget.dart';
 import 'AudioRecorderWidget.dart';
@@ -86,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-            StreamBuilderWidget(),
             //VideoStreamWidget(),
           ],
         ),
