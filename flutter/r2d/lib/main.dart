@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'VideoWidget.dart';
 import 'server.dart';
 import 'StreamWidget.dart';
 import 'DrawerWidget.dart';
@@ -43,6 +44,11 @@ final GoRouter _router = GoRouter(
         path: '/ocr',
         builder: (BuildContext context, GoRouterState state) {
           return const TextRecognitionWidget();
+        }),
+    GoRoute(
+        path: '/video',
+        builder: (BuildContext context, GoRouterState state) {
+          return const VideoWidget();
         }),
   ],
 );

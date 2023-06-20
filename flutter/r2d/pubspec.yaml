@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   web_socket_channel: ^2.4.0
   go_router: ^7.1.1
+  image_picker: ^0.8.4
+  image: ^3.0.3
+  flutter_ffmpeg: ^0.4.1
+  path_provider: ^2.0.12
 
 dev_dependencies:
   flutter_test:
