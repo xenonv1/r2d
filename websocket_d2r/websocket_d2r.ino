@@ -2,22 +2,31 @@
 #include <WebSocketsServer.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7789.h>
+#include <ESP32Ping.h>
 
 
-#define TFT_CS 5
-#define TFT_DC 16
-#define TFT_RST 17
+// Define GPIO pins for hardware SPI
+//#define PIN_NUM_MISO 19 //G19 DEFAULT VSPI
+//#define PIN_NUM_MOSI 23 //G23 DEFAULT VSPI
+//#define PIN_NUM_CLK  18 //D18 DEFAULT VSPI
+#define TFT_CS 5    // G5
+#define TFT_DC 16   // G16
+#define TFT_RST 17  // G17
 
 // Dimensions of the TFT display
 #define TFT_WIDTH 135
 #define TFT_HEIGHT 240
 
 
-const char* ssid = "DESKTOP-RCRV73B 3238";
-const char* password = "X70t684*";
-//IPAddress local_IP(192, 168, 178, 184);
-//IPAddress gateway(192, 168, 178, 1);
-//IPAddress subnet(255, 255, 0, 0);
+//const char* ssid = "DESKTOP-RCRV73B 3238";
+//const char* password = "X70t684*";
+const char* ssid = "iPhone von Steven";
+const char* password = "hallo12345";
+IPAddress local_IP(192, 168, 31, 115);
+IPAddress gateway(192, 168, 31, 1);
+IPAddress subnet(255, 255, 0, 0);
+IPAddress primaryDNS(8, 8, 8, 8); //optional
+IPAddress secondaryDNS(8, 8, 4, 4); //optional
 
 WebSocketsServer webSocket = WebSocketsServer(8080);
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
@@ -33,12 +42,11 @@ size_t receivedImageSize = 0;
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial);
+  //while (!Serial);
 
-  // Configures static IP address
-  /*if (!WiFi.config(local_IP, gateway, subnet)) {
+  if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
     Serial.println("STA Failed to configure");
-  }*/
+  }
 
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -46,7 +54,20 @@ void setup() {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
-  Serial.println("Connected to WiFi");
+  Serial.println("");
+  Serial.println("WiFi connected!");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+  Serial.print("ESP Mac Address: ");
+  Serial.println(WiFi.macAddress());
+  Serial.print("Gateway IP: ");
+  Serial.println(WiFi.gatewayIP());
+  Serial.print("DNS: ");
+  Serial.println(WiFi.dnsIP());
+
+  IPAddress ip (192, 168, 137, 1); // The remote ip to ping
+  bool ret = Ping.ping(ip);
+  Serial.println(ret);
 
   // Initialize TFT display
   tft.init(TFT_WIDTH, TFT_HEIGHT);
