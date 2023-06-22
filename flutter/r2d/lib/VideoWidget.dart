@@ -72,45 +72,52 @@ class _VideoPageState extends State<VideoPage> {
   Future<void> _sendImages() async {
     final directory = Directory(_outputPath);
     final files = directory.listSync();
+    int i = 0;
 
     for (final file in files) {
-      if (file is File) {
-        final bytes = await file.readAsBytes();
-        final image = img.decodeImage(bytes);
+      if (i % 2 == 0) {
+        if (file is File) {
+          final bytes = await file.readAsBytes();
+          final image = img.decodeImage(bytes);
 
-        // Rotate the image by 90 degrees
-        final rotatedImage = img.copyRotate(image!, 90);
+          // Rotate the image by 90 degrees
+          final rotatedImage = img.copyRotate(image!, 90);
 
-        // Convert image to RGB bitmap
-        final rgbImage = img.copyResize(rotatedImage, width: 135, height: 240);
-        final rgbBytes = rgbImage.getBytes(format: img.Format.rgb);
+          // Convert image to RGB bitmap
+          final rgbImage = img.copyResize(
+              rotatedImage, width: 135, height: 240);
+          final rgbBytes = rgbImage.getBytes(format: img.Format.rgb);
 
-        // Convert Uint16List to byte array (Uint8List)
-        final uint16List = Uint16List(rgbBytes.length ~/ 3);
-        for (var i = 0; i < rgbBytes.length; i += 3) {
-          final r = rgbBytes[i];
-          final g = rgbBytes[i + 1];
-          final b = rgbBytes[i + 2];
-          final hexValue = ((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3);
-          uint16List[i ~/ 3] = hexValue;
+          // Convert Uint16List to byte array (Uint8List)
+          final uint16List = Uint16List(rgbBytes.length ~/ 3);
+          for (var i = 0; i < rgbBytes.length; i += 3) {
+            final r = rgbBytes[i];
+            final g = rgbBytes[i + 1];
+            final b = rgbBytes[i + 2];
+            final hexValue = ((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3);
+            uint16List[i ~/ 3] = hexValue;
+          }
+
+          final byteData = uint16List.buffer.asUint8List();
+
+          // Split byte array into smaller chunks
+          const chunkSize = 1024; // Adjust this value as per your requirements
+          final totalChunks = (byteData.length / chunkSize).ceil();
+
+          for (var chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+            final start = chunkIndex * chunkSize;
+            final end = (chunkIndex + 1) * chunkSize;
+            final chunk = byteData.sublist(
+                start, end > byteData.length ? byteData.length : end);
+
+            // Send the chunk via WebSocket
+            webSocketService.sendMessage(chunk);
+          }
         }
-
-        final byteData = uint16List.buffer.asUint8List();
-
-        // Split byte array into smaller chunks
-        const chunkSize = 1024; // Adjust this value as per your requirements
-        final totalChunks = (byteData.length / chunkSize).ceil();
-
-        for (var chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
-          final start = chunkIndex * chunkSize;
-          final end = (chunkIndex + 1) * chunkSize;
-          final chunk = byteData.sublist(
-              start, end > byteData.length ? byteData.length : end);
-
-          // Send the chunk via WebSocket
-          webSocketService.sendMessage(chunk);
-        }
+      }else{
+        print('skipped Image');
       }
+      i++;
     }
   }
 

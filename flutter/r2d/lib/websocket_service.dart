@@ -3,7 +3,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WebSocketService {
   WebSocketChannel? _channel;
-  final String _url = 'ws://192.168.137.159:8080';
+  final String _url = 'ws://192.168.137.212:8080';
   Function(dynamic)? onMessageReceived;
 
   void connect() {
