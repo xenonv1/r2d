@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:typed_data';
 import 'package:web_socket_channel/io.dart';
 import 'ObjectClassificationWidget.dart';
@@ -12,7 +9,6 @@ class CameraInputWidget extends StatefulWidget {
 
   @override
   State<CameraInputWidget> createState() => _CameraInputWidgetState();
-
 }
 
 late Uint8List lastImageShown;
@@ -31,11 +27,9 @@ class _CameraInputWidgetState extends State<CameraInputWidget> {
     _channel.stream.listen((dynamic data) {
       if (data is Uint8List) {
         _controller.add(data);
-        ObjectClassificationWidget().sendImage(data);
+        const ObjectClassificationWidget().setLastImage(data);
         return;
       }
-
-      print('wrong type');
       return;
     });
   }

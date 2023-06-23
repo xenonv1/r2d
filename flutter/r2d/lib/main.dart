@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'server.dart';
-import 'StreamWidget.dart';
+// import 'server.dart';
+// import 'StreamWidget.dart';
 import 'DrawerWidget.dart';
 import 'ObjectClassificationWidget.dart';
 import 'AudioRecorderWidget.dart';
@@ -81,12 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       drawer: const DrawerWidget(),
-      body: Center(
+      body: const Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            //VideoStreamWidget(),
-          ],
+          mainAxisAlignment: MainAxisAlignment.center
         ),
       ),
     );
