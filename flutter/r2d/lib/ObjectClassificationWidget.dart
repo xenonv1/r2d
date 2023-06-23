@@ -85,7 +85,6 @@ class _ImageLabellingState extends State<ImageLabelling> {
         }
       }
     }
-
     return nv21Data;
   }
 

@@ -6,6 +6,6 @@ class TextRecognitionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(), drawer: DrawerWidget(), body: Center(child: Text('OCR')));
+    return Scaffold(appBar: AppBar(), drawer: const DrawerWidget(), body: const Center(child: Text('OCR')));
   }
 }

@@ -6,6 +6,6 @@ class AudioRecorderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(), drawer: DrawerWidget(), body: Center(child: Text('Audio Recorder'),),);
+    return Scaffold(appBar: AppBar(), drawer: const DrawerWidget(), body: const Center(child: Text('Audio Recorder'),),);
   }
 }
