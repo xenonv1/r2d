@@ -8,6 +8,7 @@ import 'ObjectClassificationWidget.dart';
 import 'AudioRecorderWidget.dart';
 import 'CameraWidget.dart';
 import 'TextRecognitionWidget.dart';
+import 'FacialRecognitionWidget.dart';
 
 void main() {
   // start the websocket server when the app is launched (no need for second version)
@@ -43,6 +44,11 @@ final GoRouter _router = GoRouter(
         path: '/ocr',
         builder: (BuildContext context, GoRouterState state) {
           return const TextRecognitionWidget();
+        }),
+        GoRoute(
+        path: '/facial-recognition',
+        builder: (BuildContext context, GoRouterState state) {
+          return  FacialRecognitionWidget();
         }),
   ],
 );

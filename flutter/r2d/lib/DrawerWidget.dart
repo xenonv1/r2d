@@ -52,6 +52,11 @@ class DrawerWidget extends StatelessWidget {
             title: const Text('Texterkennung (OCR)'),
             onTap: () => context.go('/ocr'),
           ),
+          ListTile(
+            leading: const Icon(Icons.face),
+            title: const Text('Personenerkennung'),
+            onTap: () => context.go('/facial-recognition'),
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 15.0),
             child: Divider(
