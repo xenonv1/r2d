@@ -27,7 +27,7 @@ class _CameraInputWidgetState extends State<CameraInputWidget> {
     _channel.stream.listen((dynamic data) {
       if (data is Uint8List) {
         _controller.add(data);
-        const ObjectClassificationWidget().setLastImage(data);
+        const ImageLabelling().setLastImage(data);
         return;
       }
       return;
