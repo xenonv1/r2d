@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:r2d/CameraInputWidget.dart';
+//import 'package:r2d/CameraInputWidget.dart';
 import 'DrawerWidget.dart';
+import 'StreamWidget.dart';
 
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:typed_data';
@@ -20,7 +21,7 @@ class ObjectClassificationWidget extends StatelessWidget {
       drawer: const DrawerWidget(),
       body: Center(
         child: Column(
-          children: const [CameraInputWidget(), ImageLabelling()],
+          children: const [StreamWidget(), ImageLabelling()],
         ),
       ),
     );
@@ -30,9 +31,9 @@ class ObjectClassificationWidget extends StatelessWidget {
 class ImageLabelling extends StatefulWidget {
   const ImageLabelling({Key? key}) : super(key: key);
 
-    void setLastImage(Uint8List inputImage) {
-    Uint8List nv21Image =
-        Uint8List.fromList(_ImageLabellingState().convertJpegToNV21(inputImage, 640, 480));
+  void setLastImage(Uint8List inputImage) {
+    Uint8List nv21Image = Uint8List.fromList(
+        _ImageLabellingState().convertJpegToNV21(inputImage, 640, 480));
     _ImageLabellingState().identifyImage(InputImage.fromBytes(
         bytes: nv21Image,
         metadata: InputImageMetadata(
@@ -48,8 +49,6 @@ class ImageLabelling extends StatefulWidget {
 }
 
 class _ImageLabellingState extends State<ImageLabelling> {
-
-
   @override
   Widget build(BuildContext context) {
     return Center(
