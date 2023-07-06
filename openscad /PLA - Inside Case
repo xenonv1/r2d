@@ -1,22 +1,22 @@
 //Maße sind in mm
 //Variables:
 //Case
-gBreite=42;
-gLaenge=80;
+gBreite= 21;
+gLaenge=72;
 gHoehe=30;
 gTX=40;
 gTY=80;
 
 //Inside
-iBreite=gBreite-4;
-iLaenge=gLaenge-4;
+iBreite=gBreite-0.5;
+iLaenge=gLaenge-0.5;
 iHoehe=gHoehe+2;
 iTX=gTX;
 iTY=gTY;
 
 //Camera
 kRadius=4.2;
-kTranslateX=35;
+kTranslateX=37;
 
 //Lamp
 lRadius=4;
@@ -38,57 +38,56 @@ dTZ=15;
 oeBreite=5;
 oeLaenge=10;
 oeHoehe=10;
-oeTX=20;
+oeTX=25;
 oeTY=80;
-oeTZ=18;
+oeTZ=19;
 
 //Magnet
-mBreite=5;
+mBreite=4;
 mLaenge=10;
-mHoehe=2;
-mTX=21.5;
+mHoehe=1.5;
+mTX=29.5;
 mTY=80;
-mTZ=12;
+mTZ=14;
 
 //Holding 1&2
-h1Breite=5;
-h1Laenge=10;
-h1Hoehe=1.5;
-h1TX=57;
-h1TY=100;
-h1TZ=12.5;
+h1Breite=4;
+h1Laenge=8;
+h1Hoehe=1;
+h1TX=48.75;
+h1TY=90;
+h1TZ=14;
 
-h2Breite=5;
-h2Laenge=10;
-h2Hoehe=1.5;
-h2TX=57;
-h2TY=60;
-h2TZ=12.5;
+h2Breite=4;
+h2Laenge=8;
+h2Hoehe=1;
+h2TX=48.75;
+h2TY=70;
+h2TZ=14;
 
 //Gap Holding
-aBreite=3;
-aLaenge=5;
+aBreite=2.5;
+aLaenge=5.5;
 aHoehe=3;
-aTX=57;
-a1TY=100;
-aTZ=12.5;
-a2TY=60;
+aTX=48.8;
+a1TY=90;
+aTZ=14;
+a2TY=70;
+
 
 difference(){
-    //Case
-    translate( [gTX,gTY,0] ) cube([gBreite,gLaenge,gHoehe], true);
+    //Case mit Rundung
+    //Variante mit 600mAh-Akku
+    minkowski(){
+        translate( [gTX,gTY,0] ) cube([gBreite,gLaenge,gHoehe], true);
+       sphere(2, $fn=50);
+    }
     
      //Inside
-    translate( [iTX,iTY,2] ) cube([iBreite,iLaenge,iHoehe], true, $fn=100);
+    translate( [iTX,iTY,2] ) cube([iBreite,iLaenge,iHoehe+5], true, $fn=100);
     
     //Camera
-    rotate(-90,[50,0,0]) translate( [kTranslateX,0,25] ) cylinder (h = 40, r=kRadius, $fn=100);
-    
-    //Lamp
-    //rotate(-90,[50,0,0]) translate( [50,0,0] )cylinder (h = 40, r=lRadius, $fn=100);
-    
-    //Mikro
-    //rotate(-90,[50,0,0]) translate( [65,0,0] ) cylinder (h = 10, r=2, $fn=100);
+    rotate(-90,[50,0,0]) translate( [kTranslateX,0,20] ) cylinder (h = 40, r=kRadius, $fn=100);
     
     //LED
     rotate(-90,[50,0,0]) translate( [LEDtranslateX,LEDtranslateY,20] ) cylinder (h = 10, r=LEDRadius, $fn=100);
@@ -97,15 +96,17 @@ difference(){
     translate( [dTX,dTY,dTZ] ) cube([dBreite,dLaenge,dHoehe], true);
     
     //Gap to open
-    translate( [oeTX,oeTY,oeTZ] ) cube([oeBreite,oeLaenge,oeHoehe], true);
+    translate( [oeTX,oeTY,oeTZ] ) cube([oeBreite+10,oeLaenge,oeHoehe], true);
     
      //USB
-    translate( [40,117,0] ) cube([11,13,7], true);
+    translate( [40,116,0] ) cube([11.5,6,6.5], true);
+    
+    //ON_OFF
+    translate( [40,116,-10] ) cube([6.4,5,3.4], true);
 }
 
-   
-//Deckel, Klappe
-//translate( [40,80,14.5] ) cube([73,143,1], true);
+//USB_Up
+//translate( [40,127.5,-13] ) cube([15,12,7], true);
 
 //Magnet
 difference(){
@@ -125,3 +126,24 @@ difference(){
     
     translate( [aTX,a2TY,aTZ] ) cube([aBreite,aLaenge,aHoehe], true);
 }
+
+//ToGetOut
+difference(){
+    translate( [40,119,10] ) cube([8,3.5,1.5], true);
+    translate( [40,119,10] ) cube([6.5,2,2.5], true);
+}    
+
+//Micro-USB
+//Right
+translate( [32.5,103.5,0.5] ) cube([2.5,25,1.25], true);
+translate( [30,103.15,1.9] ) cube([2.5,25.5,4], true);
+//Left
+translate( [47.5,103.5,0.5] ) cube([2.5,25,1.25], true);
+translate( [50,103.15,1.9] ) cube([2.5,25.5,4], true);
+//Back
+translate( [40,91.5,1.4] ) cube([17.7,2.2,3], true);
+
+//Cap
+//translate( [iTX,iTY,17] ) cube([iBreite-1,iLaenge-1,4], true, $fn=100);
+//translate( [iTX+16,iTY+15,15] ) cube([1,3,6], true, $fn=100);
+//translate( [iTX+16,iTY-15,15] ) cube([1,3,6], true, $fn=100);
