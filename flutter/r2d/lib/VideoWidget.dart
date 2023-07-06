@@ -55,6 +55,9 @@ class _VideoPageState extends State<VideoPage> {
     final directory = Directory(_outputPath);
     if (!await directory.exists()) {
       await directory.create(recursive: true);
+    }else{
+      directory.deleteSync(recursive: true);
+      await directory.create(recursive: true);
     }
 
     final arguments = '-i $_videoPath $_outputPath/output-%04d.jpg';
