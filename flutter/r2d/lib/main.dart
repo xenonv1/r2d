@@ -11,8 +11,8 @@ import 'TextRecognitionWidget.dart';
 
 void main() {
   // start the websocket server when the app is launched (no need for second version)
-  Server server = Server();
-  server.startServer();
+  // Server server = Server();
+  // server.startServer();
 
   runApp(const MyApp());
 }

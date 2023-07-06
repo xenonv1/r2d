@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:r2d/CameraInputWidget.dart';
 import 'DrawerWidget.dart';
 import 'StreamWidget.dart';
+import 'server.dart';
 
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:typed_data';
@@ -49,6 +50,13 @@ class ImageLabelling extends StatefulWidget {
 }
 
 class _ImageLabellingState extends State<ImageLabelling> {
+  @override
+  void initState() {
+    Server server = Server();
+    server.startServer();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
