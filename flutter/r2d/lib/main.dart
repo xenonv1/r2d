@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'server.dart';
-// import 'StreamWidget.dart';
 import 'DrawerWidget.dart';
 import 'ObjectClassificationWidget.dart';
 import 'AudioRecorderWidget.dart';
@@ -10,10 +8,6 @@ import 'CameraWidget.dart';
 import 'TextRecognitionWidget.dart';
 
 void main() {
-  // start the websocket server when the app is launched (no need for second version)
-  Server server = Server();
-  server.startServer();
-
   runApp(const MyApp());
 }
 

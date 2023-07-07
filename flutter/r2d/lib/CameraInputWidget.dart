@@ -4,8 +4,14 @@ import 'dart:typed_data';
 import 'package:web_socket_channel/io.dart';
 import 'ObjectClassificationWidget.dart';
 
+bool _sendImageToLabeling = false;
+
 class CameraInputWidget extends StatefulWidget {
   const CameraInputWidget({super.key});
+
+  void toggleLabeling(){
+    _sendImageToLabeling = !_sendImageToLabeling;
+  }
 
   @override
   State<CameraInputWidget> createState() => _CameraInputWidgetState();
@@ -27,7 +33,9 @@ class _CameraInputWidgetState extends State<CameraInputWidget> {
     _channel.stream.listen((dynamic data) {
       if (data is Uint8List) {
         _controller.add(data);
-        const ImageLabelling().setLastImage(data);
+        if(_sendImageToLabeling){
+          const ImageLabeling().setLastImage(data);
+        }
         return;
       }
       return;

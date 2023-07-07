@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-//import 'package:r2d/CameraInputWidget.dart';
+import 'package:r2d/CameraInputWidget.dart';
 import 'DrawerWidget.dart';
-import 'StreamWidget.dart';
 
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
 
 String _classificationText = "";
+String _labelText = "";
 late Uint8List lastImage;
 Uint8List imageConverted = Uint8List.fromList([]);
+
+bool _realTimeLabelingToggle = false;
 
 class ObjectClassificationWidget extends StatelessWidget {
   const ObjectClassificationWidget({super.key});
@@ -21,65 +23,76 @@ class ObjectClassificationWidget extends StatelessWidget {
       drawer: const DrawerWidget(),
       body: Center(
         child: Column(
-          children: const [StreamWidget(), ImageLabelling()],
+          children: const [CameraInputWidget(), ImageLabeling()],
         ),
       ),
     );
   }
 }
 
-class ImageLabelling extends StatefulWidget {
-  const ImageLabelling({Key? key}) : super(key: key);
+class ImageLabeling extends StatefulWidget {
+  const ImageLabeling({Key? key}) : super(key: key);
 
   void setLastImage(Uint8List inputImage) {
     Uint8List nv21Image = Uint8List.fromList(
-        _ImageLabellingState().convertJpegToNV21(inputImage, 640, 480));
-    _ImageLabellingState().identifyImage(InputImage.fromBytes(
+        _ImageLabelingState().convertJpegToNV21(inputImage, 640, 480));
+    _ImageLabelingState().identifyImage(InputImage.fromBytes(
         bytes: nv21Image,
         metadata: InputImageMetadata(
             size: const Size(640, 480),
             rotation: InputImageRotation.rotation0deg,
             format: InputImageFormat.nv21,
             bytesPerRow: 1920)));
-    print(_classificationText);
   }
 
   @override
-  State<ImageLabelling> createState() => _ImageLabellingState();
+  State<ImageLabeling> createState() => _ImageLabelingState();
 }
 
-class _ImageLabellingState extends State<ImageLabelling> {
+class _ImageLabelingState extends State<ImageLabeling> {
+
+  @override
+  void initState() {
+    const CameraInputWidget().toggleLabeling();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    const CameraInputWidget().toggleLabeling();
+    _realTimeLabelingToggle = false;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const SizedBox(height: 15),
         SizedBox(
-            height: 250,
-            child: SingleChildScrollView(child: Text(_classificationText))),
+            height: 300,
+            child: SingleChildScrollView(child: Text(_labelText, textAlign: TextAlign.center, style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)))),
         ElevatedButton(
             onPressed: () {
               setState(
                 () {
-                  onButtonPressed(lastImage);
+                  onButtonPressed();
                 },
               );
             },
-            child: const Text('Label Image')),
+            child: Text('${!_realTimeLabelingToggle ? 'Start' : 'Stop'} Image Labeling')),
       ]),
     );
   }
 
-  void onButtonPressed(Uint8List imageData) {
-    Uint8List nv21Image =
-        Uint8List.fromList(convertJpegToNV21(imageData, 640, 480));
-    _ImageLabellingState().identifyImage(InputImage.fromBytes(
-        bytes: nv21Image,
-        metadata: InputImageMetadata(
-            size: const Size(640, 480),
-            rotation: InputImageRotation.rotation0deg,
-            format: InputImageFormat.nv21,
-            bytesPerRow: 1920)));
-    //imageConverted = nv21Image;
+  void onButtonPressed() async {
+    _realTimeLabelingToggle = !_realTimeLabelingToggle;
+    while(_realTimeLabelingToggle){
+      setState(() {
+        _labelText = _classificationText;
+      });
+      await Future.delayed(const Duration(milliseconds: 1));
+    }
   }
 
   Uint8List convertJpegToNV21(Uint8List jpegData, int width, int height) {
@@ -122,14 +135,12 @@ class _ImageLabellingState extends State<ImageLabelling> {
     final List<ImageLabel> image = await imageLabeler.processImage(inputImage);
 
     if (image.isEmpty) {
-      _classificationText = "Cannot identify the image";
-
+      _classificationText = "";
       return;
     }
     _classificationText = "";
     for (ImageLabel img in image) {
-      _classificationText +=
-          "Label : ${img.label}\nConfidence : ${img.confidence}\n\n";
+      _classificationText += "${img.label}\n";
     }
     imageLabeler.close();
   }
