@@ -2,23 +2,7 @@ import 'package:flutter/material.dart';
 import 'DrawerWidget.dart';
 
 class CameraWidget extends StatelessWidget {
-  const CameraWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CameraPage();
-  }
-}
-
-class CameraPage extends StatefulWidget {
-  @override
-  _CameraPageState createState() => _CameraPageState();
-}
-
-class _CameraPageState extends State<CameraPage> {
-  bool _showImageStream = false;
-  bool _showStaticImage = false;
-  bool _showConfirmationPopup = false;
+  const CameraWidget({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,80 +10,78 @@ class _CameraPageState extends State<CameraPage> {
       appBar: AppBar(
         title: const Text('Kamera'),
       ),
-      drawer: DrawerWidget(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (_showImageStream) ImageStreamWidget(),
-            if (_showStaticImage) StaticImageWidget(),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _showImageStream = true;
-                  _showStaticImage = false;
-                });
-              },
-              child: Text('Live Video'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _showImageStream = false;
-                  _showStaticImage = true;
-                });
-              },
-              child: Text('Aufgenommenes Bild'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Öffne Einstellungsseite
-              },
-              child: Text('Kameraeinstellungen'),
-            ),
-          ],
-        ),
-      ),
+      drawer: const DrawerWidget(),
+      body: const CameraPage(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_showConfirmationPopup) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ConfirmationPopup();
-              },
-            );
-          }
-
-          setState(() {
-            _showConfirmationPopup = true;
-          });
+          showDialog(
+            context: context,
+            builder: (_) => const ConfirmationPopup(),
+          );
         },
-        child: Icon(Icons.camera_alt_outlined),
+        child: const Icon(Icons.camera_alt_outlined),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
 
-class ImageStreamWidget extends StatelessWidget {
+class CameraPage extends StatefulWidget {
+  const CameraPage();
+
+  @override
+  _CameraPageState createState() => _CameraPageState();
+}
+
+class _CameraPageState extends State<CameraPage> {
+  int _imageType = 0;
+  bool _showConfirmationPopup = false;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 200,
-      color: Colors.grey,
-      child: Center(
-        child: Image.asset('assets/images/LiveRecord.png'),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ImageWidget(imageType: _imageType),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _imageType = 0;
+                });
+              },
+              child: const Text('Live Video'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _imageType = 1;
+                });
+              },
+              child: const Text('Aufgenommenes Bild'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Öffne Einstellungsseite
+              },
+              child: const Text('Kameraeinstellungen'),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class StaticImageWidget extends StatelessWidget {
+class ImageWidget extends StatelessWidget {
+  final int imageType;
+
+  const ImageWidget({required this.imageType});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -107,26 +89,26 @@ class StaticImageWidget extends StatelessWidget {
       height: 200,
       color: Colors.grey,
       child: Center(
-        child: Image.asset('assets/images/Example_Camera.png'),
+        child: Image.asset(
+          imageType == 0 ? 'assets/images/LiveRecord.png' : 'assets/images/Example_Camera.png',
+        ),
       ),
     );
   }
 }
 
 class ConfirmationPopup extends StatelessWidget {
-  const ConfirmationPopup({super.key});
+  const ConfirmationPopup({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Aufnahme bestätigt'),
-      content: Text('Deine Aufnahme wurde gespeichert'),
+      title: const Text('Aufnahme bestätigt'),
+      content: const Text('Deine Aufnahme wurde gespeichert'),
       actions: [
         ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('OK'),
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('OK'),
         ),
       ],
     );
