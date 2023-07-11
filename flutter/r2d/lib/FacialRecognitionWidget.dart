@@ -39,7 +39,7 @@ class _FacialRecognitionPageState extends State<FacialRecognitionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Personenerkennung'),
+        title: const Text('Facial Recognition'),
       ),
       drawer: const DrawerWidget(),
       body: Center(
@@ -71,7 +71,7 @@ class _FacialRecognitionPageState extends State<FacialRecognitionPage> {
                   ),
                   SizedBox(height: 30),
                   Text(
-                    'Keine Person erkannt',
+                    'No person detected',
                     style: TextStyle(fontSize: 32),
                   ),
                 ],
@@ -80,14 +80,14 @@ class _FacialRecognitionPageState extends State<FacialRecognitionPage> {
             ElevatedButton(
               onPressed: detectPerson,
               child: const Text(
-                'Gesicht erkennen',
+                'Face detection',
                 style: TextStyle(fontSize: 24)),
             ),
 
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: refreshPage,
-              child: const Text('Aktualisieren',
+              child: const Text('updating',
               style: TextStyle(fontSize: 24)),
             ),
           ],

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'server.dart';
-import 'StreamWidget.dart';
 import 'DrawerWidget.dart';
 import 'ObjectClassificationWidget.dart';
 import 'AudioRecorderWidget.dart';
@@ -11,10 +9,6 @@ import 'TextRecognitionWidget.dart';
 import 'FacialRecognitionWidget.dart';
 
 void main() {
-  // start the websocket server when the app is launched (no need for second version)
-  // Server server = Server();
-  // server.startServer();
-
   runApp(const MyApp());
 }
 
@@ -89,10 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: const DrawerWidget(),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            //VideoStreamWidget(),
-          ],
+          mainAxisAlignment: MainAxisAlignment.center
         ),
       ),
     );
