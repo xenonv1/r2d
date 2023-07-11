@@ -8,7 +8,7 @@ class CameraWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kamera'),
+        title: const Text('Camera'),
       ),
       drawer: const DrawerWidget(),
       body: const CameraPage(),
@@ -52,7 +52,7 @@ class _CameraPageState extends State<CameraPage> {
                   _imageType = 0;
                 });
               },
-              child: const Text('Live Video'),
+              child: const Text('Live video'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -61,14 +61,14 @@ class _CameraPageState extends State<CameraPage> {
                   _imageType = 1;
                 });
               },
-              child: const Text('Aufgenommenes Bild'),
+              child: const Text('Taken picture'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Öffne Einstellungsseite
               },
-              child: const Text('Kameraeinstellungen'),
+              child: const Text('Camera settings'),
             ),
           ],
         ),
@@ -103,8 +103,8 @@ class ConfirmationPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Aufnahme bestätigt'),
-      content: const Text('Deine Aufnahme wurde gespeichert'),
+      title: const Text('Camera picture confirmed'),
+      content: const Text('Your picture was saved'),
       actions: [
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(),
