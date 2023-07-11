@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   web_socket_channel: ^2.4.0
   go_router: ^7.1.1
+  notifications: ^2.0.1
 
 dev_dependencies:
   flutter_test:

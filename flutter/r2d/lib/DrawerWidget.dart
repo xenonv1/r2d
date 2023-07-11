@@ -67,6 +67,11 @@ class DrawerWidget extends StatelessWidget {
           const ListTile(
             title: Text('D2R-Modules'),
           ),
+          ListTile(
+            leading: const Icon(Icons.message),
+            title: const Text('Push Messages'),
+            onTap: () => context.go('/push-messages'),
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 15.0),
             child: Divider(
