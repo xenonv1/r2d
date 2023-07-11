@@ -34,27 +34,27 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.image_search_rounded),
-            title: const Text('Objektklassifizierung'),
+            title: const Text('Object Classification'),
             onTap: () => context.go('/object-classification'),
           ),
           ListTile(
             leading: const Icon(Icons.mic_rounded),
-            title: const Text('Audiorekorder'),
+            title: const Text('Audio Recorder'),
             onTap: () => context.go('/audio-recorder'),
           ),
           ListTile(
             leading: const Icon(Icons.camera_alt_rounded),
-            title: const Text('Kamera'),
+            title: const Text('Camera'),
             onTap: () => context.go('/camera'),
           ),
           ListTile(
             leading: const Icon(Icons.manage_search_rounded),
-            title: const Text('Texterkennung (OCR)'),
+            title: const Text('Optical Character Recognition (OCR)'),
             onTap: () => context.go('/ocr'),
           ),
           ListTile(
             leading: const Icon(Icons.face),
-            title: const Text('Personenerkennung'),
+            title: const Text('Facial Recognition'),
             onTap: () => context.go('/facial-recognition'),
           ),
           const Padding(
