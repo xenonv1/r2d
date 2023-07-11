@@ -5,7 +5,7 @@ import "package:r2d/StreamWidget.dart";
 class Server {
 
   void startServer() {
-    VideoStreamWidgetState streamWidget = VideoStreamWidgetState();
+    StreamWidgetState streamWidget = StreamWidgetState();
 
     String url = "127.0.0.1";
     const port = 8080;

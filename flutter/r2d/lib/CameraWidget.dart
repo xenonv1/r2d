@@ -8,8 +8,8 @@ class CameraWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: DrawerWidget(),
-      body: Center(
+      drawer: const DrawerWidget(),
+      body: const Center(
         child: Text('CameraWidget'),
       ),
     );

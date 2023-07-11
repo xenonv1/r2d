@@ -5,9 +5,9 @@ class NavigatorTestRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Second Screen'),
+        title: const Text('Second Screen'),
       ),
-        body: Center(
+        body: const Center(
       child: Text('Second screen'),
       ),
     );
