@@ -16,7 +16,7 @@ class _AudioRecorderWidgetState extends State<AudioRecorderWidget> {
   int _recordingCount = 1;
   int _selectedRecordingIndex = -1;
 
-  List<String> dummyRecordings = ['Aufnahme 1'];
+  List<String> dummyRecordings = ['Recording 1'];
   List<String> dummyRecordingDurations = ['3:45'];
 
   List<DateTime> startTimes = [];
@@ -53,7 +53,7 @@ class _AudioRecorderWidgetState extends State<AudioRecorderWidget> {
       builder: (BuildContext context) {
         String recordingName = '';
         return AlertDialog(
-          title: Text('Bitte gib einen Namen für die Audioaufnahme ein'),
+          title: Text('Please provide a name for the recording.'),
           content: TextField(
             onChanged: (value) {
               recordingName = value;
@@ -66,7 +66,7 @@ class _AudioRecorderWidgetState extends State<AudioRecorderWidget> {
                   _recordingCount++;
                   dummyRecordings.add(recordingName.isNotEmpty
                       ? recordingName
-                      : 'Aufnahme $_recordingCount');
+                      : 'Recording $_recordingCount');
                   dummyRecordingDurations.add(_calculateRecordingDuration(
                       startTimes.last, stopTimes.last));
                 });
