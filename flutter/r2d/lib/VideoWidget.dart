@@ -14,12 +14,11 @@ class VideoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
-        appBar: AppBar(),
-        drawer: DrawerWidget(),
-        body: VideoPage(),
-        );
+    return Scaffold(
+      appBar: AppBar(),
+      drawer: DrawerWidget(),
+      body: VideoPage(),
+    );
   }
 }
 
@@ -35,6 +34,7 @@ class _VideoPageState extends State<VideoPage> {
   final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
   String _videoPath = '';
   String _outputPath = '';
+  TextEditingController _ipAddressController = TextEditingController();
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _VideoPageState extends State<VideoPage> {
     final directory = Directory(_outputPath);
     if (!await directory.exists()) {
       await directory.create(recursive: true);
-    }else{
+    } else {
       directory.deleteSync(recursive: true);
       await directory.create(recursive: true);
     }
@@ -70,7 +70,6 @@ class _VideoPageState extends State<VideoPage> {
       print('Error occurred during video to images conversion.');
     }
   }
-
 
   Future<void> _sendImages() async {
     final directory = Directory(_outputPath);
@@ -87,8 +86,8 @@ class _VideoPageState extends State<VideoPage> {
           final rotatedImage = img.copyRotate(image!, 90);
 
           // Convert image to RGB bitmap
-          final rgbImage = img.copyResize(
-              rotatedImage, width: 135, height: 240);
+          final rgbImage =
+              img.copyResize(rotatedImage, width: 135, height: 240);
           final rgbBytes = rgbImage.getBytes(format: img.Format.rgb);
 
           // Convert Uint16List to byte array (Uint8List)
@@ -117,7 +116,7 @@ class _VideoPageState extends State<VideoPage> {
             webSocketService.sendMessage(chunk);
           }
         }
-      }else{
+      } else {
         print('skipped Image');
       }
       i++;
@@ -134,7 +133,7 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   void _selectVideo() async {
-    final pickedFile = await picker.getVideo(source: ImageSource.gallery);
+    final pickedFile = await picker.pickVideo(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _videoPath = pickedFile.path;
@@ -142,10 +141,17 @@ class _VideoPageState extends State<VideoPage> {
     }
   }
 
+  void _connectToWebSocket() {
+    final ipAddress = _ipAddressController.text;
+    webSocketService.setIpAddress(ipAddress);
+    webSocketService.connect();
+  }
+
   @override
   void dispose() {
     webSocketService.disconnect();
     print('WebSocket connection closed');
+    _ipAddressController.dispose();
     super.dispose();
   }
 
@@ -153,21 +159,41 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: _selectVideo,
-              child: Text('Select Video'),
-            ),
-            SizedBox(height: 16),
-            Text('Selected Video: $_videoPath'),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _convertVideoToImages,
-              child: Text('Convert Video to Images'),
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 16,
+            runSpacing: 16,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: _selectVideo,
+                child: Text('Select Video'),
+              ),
+              Text('Selected Video: $_videoPath'),
+              ElevatedButton(
+                onPressed: _convertVideoToImages,
+                child: Text('Convert Video to Images'),
+              ),
+              Container(
+                width: 1000, // Adjust the width as needed
+                child: TextFormField(
+                  controller: _ipAddressController,
+                  keyboardType: TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: false,
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'IP Adresse ESP',
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: _connectToWebSocket,
+                child: const Text('Mit Brille verbinden'),
+              ),
+            ],
+          ),
         ),
       ),
     );

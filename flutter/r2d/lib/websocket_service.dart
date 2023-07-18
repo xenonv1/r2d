@@ -3,12 +3,24 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WebSocketService {
   WebSocketChannel? _channel;
-  final String _url = 'ws://192.168.137.249:8080';
+  String? _ipAddress;
   Function(dynamic)? onMessageReceived;
 
+  void setIpAddress(String ipAddress) {
+    _ipAddress = ipAddress;
+  }
+
   void connect() {
+    if (_ipAddress == null || _ipAddress!.isEmpty) {
+      print('IP Address is not set. Cannot connect to WebSocket.');
+      return;
+    }
+
+    final String url = 'ws://$_ipAddress:8080';
+
     try {
-      _channel = WebSocketChannel.connect(Uri.parse(_url));
+      print(url);
+      _channel = WebSocketChannel.connect(Uri.parse(url));
       _channel?.stream.listen(_onMessageReceived);
       print('WebSocket connected');
     } catch (e) {
