@@ -69,8 +69,8 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.message),
-            title: const Text('Push Messages'),
-            onTap: () => context.go('/push-messages'),
+            title: const Text('Funktionseinstellungen'),
+            onTap: () => context.go('/function-settings'),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 15.0),

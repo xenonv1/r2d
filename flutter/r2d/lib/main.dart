@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'NotificationsWidget.dart';
+import 'FunctionSettingsWidget.dart';
 import 'server.dart';
 import 'StreamWidget.dart';
 import 'DrawerWidget.dart';
@@ -52,9 +52,9 @@ final GoRouter _router = GoRouter(
           return  FacialRecognitionWidget();
         }),
         GoRoute(
-        path: '/push-messages',
+        path: '/function-settings',
         builder: (BuildContext context, GoRouterState state) {
-          return  NotificationsWidget();
+          return  FunctionSettingsWidget();
         }),
   ],
 );
