@@ -7,6 +7,7 @@ import 'AudioRecorderWidget.dart';
 import 'CameraWidget.dart';
 import 'TextRecognitionWidget.dart';
 import 'FacialRecognitionWidget.dart';
+import 'SightClassificationWidget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,11 +40,16 @@ final GoRouter _router = GoRouter(
         builder: (BuildContext context, GoRouterState state) {
           return const TextRecognitionWidget();
         }),
-        GoRoute(
+    GoRoute(
         path: '/facial-recognition',
         builder: (BuildContext context, GoRouterState state) {
-          return  FacialRecognitionWidget();
+          return FacialRecognitionWidget();
         }),
+    GoRoute(
+        path: '/sight-classification',
+        builder: (BuildContext context, GoRouterState state) {
+          return SightClassificationWidget();
+        })
   ],
 );
 
@@ -82,9 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: const DrawerWidget(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center
-        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center),
       ),
     );
   }

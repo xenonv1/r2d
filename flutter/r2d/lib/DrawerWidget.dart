@@ -38,6 +38,11 @@ class DrawerWidget extends StatelessWidget {
             onTap: () => context.go('/object-classification'),
           ),
           ListTile(
+            leading: const Icon(Icons.attractions_rounded),
+            title: const Text('Sight Classification'),
+            onTap: () => context.go('/sight-classification'),
+          ),
+          ListTile(
             leading: const Icon(Icons.mic_rounded),
             title: const Text('Audio Recorder'),
             onTap: () => context.go('/audio-recorder'),
