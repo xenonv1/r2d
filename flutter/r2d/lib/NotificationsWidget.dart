@@ -25,7 +25,13 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage> {
   final notificationsService = NotificationsService();
-  bool _isActive = false;
+  bool _switchvalue1 = false;
+  bool _switchvalue2 = false;
+  bool _switchvalue3 = false;
+  bool _switchvalue4 = false;
+  bool _switchvalue5 = false;
+  bool _switchvalue6 = false;
+  bool _switchvalue7 = false;
 
   @override
   void initState() {
@@ -41,14 +47,20 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [const Text('Notifications'),
+        children: [
+          Row(children: [
+            const Icon(Icons.notifications),
+            const Spacer(flex: 1),
+            const Text('Benachrichtigungen',
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            const Spacer(flex: 12),
             Switch(
-              value: _isActive,
+              value: _switchvalue1,
               onChanged: (bool value) {
                 if (!value) {
                   notificationsService.startListening();
@@ -56,11 +68,131 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   notificationsService.stopListening();
                 }
                 setState(() {
-                  _isActive = value;
+                  _switchvalue1 = value;
                 });
               },
             ),
-          ])
+          ]),
+          Row(children: [
+            const Text('Uhrzeit',
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            const Spacer(flex: 1),
+            Switch(
+              value: _switchvalue2,
+              onChanged: (bool value) {
+                if (!value) {
+                  notificationsService.startListening();
+                } else {
+                  notificationsService.stopListening();
+                }
+                setState(() {
+                  _switchvalue2 = value;
+                });
+              },
+            ),
+          ]),
+          Row(children: [
+            const Text('Datum',
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            const Spacer(flex: 1),
+            Switch(
+              value: _switchvalue3,
+              onChanged: (bool value) {
+                if (!value) {
+                  notificationsService.startListening();
+                } else {
+                  notificationsService.stopListening();
+                }
+                setState(() {
+                  _switchvalue3 = value;
+                });
+              },
+            ),
+          ]),
+          Row(children: [
+            const Text('Akkustand',
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            const Spacer(flex: 1),
+            Switch(
+              value: _switchvalue4,
+              onChanged: (bool value) {
+                if (!value) {
+                  notificationsService.startListening();
+                } else {
+                  notificationsService.stopListening();
+                }
+                setState(() {
+                  _switchvalue4 = value;
+                });
+              },
+            ),
+          ]),
+          Row(children: [
+            const Text('Anrufe',
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            const Spacer(flex: 1),
+            Switch(
+              value: _switchvalue5,
+              onChanged: (bool value) {
+                if (!value) {
+                  notificationsService.startListening();
+                } else {
+                  notificationsService.stopListening();
+                }
+                setState(() {
+                  _switchvalue5 = value;
+                });
+              },
+            ),
+          ]),
+          Row(children: [
+            const Text('Wetter',
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            const Spacer(flex: 1),
+            Switch(
+              value: _switchvalue6,
+              onChanged: (bool value) {
+                if (!value) {
+                  notificationsService.startListening();
+                } else {
+                  notificationsService.stopListening();
+                }
+                setState(() {
+                  _switchvalue6 = value;
+                });
+              },
+            ),
+          ]),
+          Row(children: [
+            const Text('Notsignal',
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            const Spacer(flex: 1),
+            Switch(
+              value: _switchvalue7,
+              onChanged: (bool value) {
+                if (!value) {
+                  notificationsService.startListening();
+                } else {
+                  notificationsService.stopListening();
+                }
+                setState(() {
+                  _switchvalue7 = value;
+                });
+              },
+            ),
+          ]),
         ],
       ),
     );
