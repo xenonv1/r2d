@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:web_socket_channel/io.dart';
 import 'ObjectClassificationWidget.dart';
+import 'SightClassificationWidget.dart';
 
 bool _sendImageToLabeling = false;
+bool _sendImageToSightClassification = false;
 
 class CameraInputWidget extends StatefulWidget {
   const CameraInputWidget({super.key});
 
-  void toggleLabeling(){
+  void toggleLabeling() {
     _sendImageToLabeling = !_sendImageToLabeling;
+    _sendImageToSightClassification = !_sendImageToSightClassification;
   }
 
   @override
@@ -33,8 +36,9 @@ class _CameraInputWidgetState extends State<CameraInputWidget> {
     _channel.stream.listen((dynamic data) {
       if (data is Uint8List) {
         _controller.add(data);
-        if(_sendImageToLabeling){
+        if (_sendImageToLabeling) {
           const ImageLabeling().setLastImage(data);
+          const ClassificationBody().setLastImage(data);
         }
         return;
       }
@@ -72,7 +76,7 @@ class _CameraInputWidgetState extends State<CameraInputWidget> {
             children = [
               FadeInImage(
                 placeholder: Image.memory(lastImageShown).image,
-                 image: Image.memory(imgData).image,
+                image: Image.memory(imgData).image,
               ),
             ];
           }
