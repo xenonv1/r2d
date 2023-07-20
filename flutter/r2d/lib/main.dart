@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'FunctionSettingsWidget.dart';
+import 'server.dart';
+import 'StreamWidget.dart';
 import 'DrawerWidget.dart';
 import 'ObjectClassificationWidget.dart';
 import 'AudioRecorderWidget.dart';
@@ -43,6 +46,11 @@ final GoRouter _router = GoRouter(
         path: '/facial-recognition',
         builder: (BuildContext context, GoRouterState state) {
           return  FacialRecognitionWidget();
+        }),
+        GoRoute(
+        path: '/function-settings',
+        builder: (BuildContext context, GoRouterState state) {
+          return  FunctionSettingsWidget();
         }),
   ],
 );
