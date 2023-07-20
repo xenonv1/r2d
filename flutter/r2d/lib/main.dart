@@ -16,6 +16,8 @@ void main() {
   runApp(const MyApp());
 }
 
+// List of all routes used by the DrawerWidget
+// App-module that needs to have it's own ui should have it's own route to be accessible trough the navigation drawer
 final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
@@ -61,17 +63,17 @@ final GoRouter _router = GoRouter(
   ],
 );
 
+// to-do: rename the entry widget from MyApp
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _router,
       title: 'R2D App',
       theme: ThemeData(
-        // This is the theme of your application.
         primarySwatch: Colors.blue,
       ),
     );

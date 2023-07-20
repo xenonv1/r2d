@@ -2,6 +2,11 @@ import "package:flutter/material.dart";
 import "dart:typed_data";
 import "dart:async";
 
+/****
+ * At the moment, this widget is not in use. It is used in combination with the server on compute unit approach to display
+ * the input stream.
+ ****/
+
 class StreamWidget extends StatefulWidget {
   const StreamWidget({super.key});
 
