@@ -62,8 +62,8 @@ class _FacialRecognitionPageState extends State<FacialRecognitionPage> {
                 ],
               )
             else
-              const Column(
-                children: [
+              Column(
+                children: const [
                   Icon(
                     Icons.face_outlined,
                     size: 200,
