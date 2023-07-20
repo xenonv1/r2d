@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'VideoWidget.dart';
+import 'FunctionSettingsWidget.dart';
 import 'server.dart';
 import 'StreamWidget.dart';
 import 'DrawerWidget.dart';
@@ -9,12 +10,9 @@ import 'ObjectClassificationWidget.dart';
 import 'AudioRecorderWidget.dart';
 import 'CameraWidget.dart';
 import 'TextRecognitionWidget.dart';
+import 'FacialRecognitionWidget.dart';
 
 void main() {
-  // start the websocket server when the app is launched (no need for second version)
-  // Server server = Server();
-  // server.startServer();
-
   runApp(const MyApp());
 }
 
@@ -44,6 +42,16 @@ final GoRouter _router = GoRouter(
         path: '/ocr',
         builder: (BuildContext context, GoRouterState state) {
           return const TextRecognitionWidget();
+        }),
+    GoRoute(
+        path: '/facial-recognition',
+        builder: (BuildContext context, GoRouterState state) {
+          return  FacialRecognitionWidget();
+        }),
+    GoRoute(
+        path: '/function-settings',
+        builder: (BuildContext context, GoRouterState state) {
+          return  FunctionSettingsWidget();
         }),
     GoRoute(
         path: '/video',
@@ -89,10 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: const DrawerWidget(),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            //VideoStreamWidget(),
-          ],
+          mainAxisAlignment: MainAxisAlignment.center
         ),
       ),
     );
