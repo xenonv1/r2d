@@ -7,6 +7,8 @@ import 'dart:typed_data';
 
 String _classificationText = "";
 String _labelText = "";
+String _additionalInformation = "";
+String _informationText = "";
 
 bool _realTimeLabelingToggle = false;
 
@@ -20,11 +22,7 @@ class SightClassificationWidget extends StatelessWidget {
       drawer: const DrawerWidget(),
       body: Center(
         child: Column(
-          children: const 
-          [
-            CameraInputWidget(), 
-            ClassificationBody()
-          ],
+          children: const [CameraInputWidget(), ClassificationBody()],
         ),
       ),
     );
@@ -36,6 +34,21 @@ class ClassificationBody extends StatefulWidget {
 
   void setLastImage(Uint8List inputImage) {
     _classificationText = Labler.ImageLabeling().labelImage(inputImage);
+    checkForLabel();
+  }
+
+  void checkForLabel() {
+    if (_classificationText.toLowerCase().contains("Musical instrument")) {
+      _additionalInformation = "Some kind of object to make music with.";
+    } else if (_classificationText.toLowerCase().contains("Plant")) {
+      _additionalInformation =
+          "Plants are eukaryotes, predominantly photosynthetic, that form the kingdom Plantae.";
+    } else if (_classificationText.toLowerCase().contains("Tableware")) {
+      _additionalInformation =
+          "The knives, forks, spoons, plates, glasses, etc. used for meals";
+    } else if (_classificationText.toLowerCase().contains("Room")) {
+      _additionalInformation = "A room";
+    }
   }
 
   @override
@@ -62,29 +75,33 @@ class _ClassificationBodyState extends State<ClassificationBody> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         const SizedBox(height: 15),
         SizedBox(
-            height: 300,
-            child: SingleChildScrollView(
-                child: Text(_labelText,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                  ),
-        ElevatedButton(
-            onPressed: () {
-              setState(
-                () {
-                  onButtonPressed();
-                },
-              );
-            },
+          height: 300,
+          child: SingleChildScrollView(
             child: Text(
-                '${!_realTimeLabelingToggle ? 'Start' : 'Stop'} Image Labeling'),
+              _labelText,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
-        ]
-      ),
+          ),
+        ),
+        SizedBox(
+          height: 150,
+          child: SingleChildScrollView(
+            child: Text(_informationText),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            setState(
+              () {
+                onButtonPressed();
+              },
+            );
+          },
+          child: Text(
+              '${!_realTimeLabelingToggle ? 'Start' : 'Stop'} Image Labeling'),
+        ),
+      ]),
     );
   }
 
@@ -93,6 +110,7 @@ class _ClassificationBodyState extends State<ClassificationBody> {
     while (_realTimeLabelingToggle) {
       setState(() {
         _labelText = _classificationText;
+        _informationText = _additionalInformation;
       });
       await Future.delayed(const Duration(milliseconds: 1));
     }
