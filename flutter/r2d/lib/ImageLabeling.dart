@@ -3,13 +3,21 @@ import 'dart:typed_data';
 import 'package:image/image.dart' as img;
 import 'dart:ui';
 
+/****
+ * This module will be in charge of all the logic needed to do the image labeling (object classification)
+ ****/
+
 String _classificationText = "";
 
 class ImageLabeling {
 
 String labelImage(Uint8List inputImage) {
+  // the image (as a Uint8List) is provided in the jpeg-format. At the time, Google ML Kit is not supporting jpeg image-data for labeling
+  // convert the image to the supported nv21-format
   Uint8List nv21Image =
       Uint8List.fromList(convertJpegToNV21(inputImage, 640, 480));
+  
+  // use the converted image for the labeling
   identifyImage(InputImage.fromBytes(
       bytes: nv21Image,
       metadata: InputImageMetadata(
@@ -17,6 +25,7 @@ String labelImage(Uint8List inputImage) {
           rotation: InputImageRotation.rotation0deg,
           format: InputImageFormat.nv21,
           bytesPerRow: 1920)));
+
   return _classificationText;
 }
 
@@ -53,11 +62,14 @@ Uint8List convertJpegToNV21(Uint8List jpegData, int width, int height) {
   return nv21Data;
 }
 
+// set the options for the image labeler
 static final ImageLabelerOptions _options =
     ImageLabelerOptions(confidenceThreshold: 0.7);
 
+// set-up an instance of the image labeler and provide the options
 final imageLabeler = ImageLabeler(options: _options);
 
+// identifies the image and returns the labels as a string
 void identifyImage(InputImage inputImage) async {
   final List<ImageLabel> image = await imageLabeler.processImage(inputImage);
 
