@@ -12,10 +12,6 @@ import 'TextRecognitionWidget.dart';
 import 'FacialRecognitionWidget.dart';
 
 void main() {
-  // start the websocket server when the app is launched (no need for second version)
-  // Server server = Server();
-  // server.startServer();
-
   runApp(const MyApp());
 }
 
@@ -95,10 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: const DrawerWidget(),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            //VideoStreamWidget(),
-          ],
+          mainAxisAlignment: MainAxisAlignment.center
         ),
       ),
     );

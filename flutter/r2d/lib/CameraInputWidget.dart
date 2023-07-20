@@ -1,19 +1,25 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:web_socket_channel/io.dart';
+import 'ObjectClassificationWidget.dart';
 
-class StreamBuilderWidget extends StatefulWidget {
-  const StreamBuilderWidget({super.key});
+bool _sendImageToLabeling = false;
+
+class CameraInputWidget extends StatefulWidget {
+  const CameraInputWidget({super.key});
+
+  void toggleLabeling(){
+    _sendImageToLabeling = !_sendImageToLabeling;
+  }
 
   @override
-  State<StreamBuilderWidget> createState() => _StreamBuilderWidgetState();
+  State<CameraInputWidget> createState() => _CameraInputWidgetState();
 }
 
 late Uint8List lastImageShown;
 
-class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
+class _CameraInputWidgetState extends State<CameraInputWidget> {
   late StreamController<Uint8List> _controller;
   late IOWebSocketChannel _channel;
 
@@ -27,10 +33,11 @@ class _StreamBuilderWidgetState extends State<StreamBuilderWidget> {
     _channel.stream.listen((dynamic data) {
       if (data is Uint8List) {
         _controller.add(data);
+        if(_sendImageToLabeling){
+          const ImageLabeling().setLastImage(data);
+        }
         return;
       }
-
-      print('wrong type');
       return;
     });
   }
