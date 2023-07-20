@@ -2,17 +2,22 @@ import "package:flutter/material.dart";
 import "dart:typed_data";
 import "dart:async";
 
-class VideoStreamWidget extends StatefulWidget {
-  const VideoStreamWidget({super.key});
+/****
+ * At the moment, this widget is not in use. It is used in combination with the server on compute unit approach to display
+ * the input stream.
+ ****/
+
+class StreamWidget extends StatefulWidget {
+  const StreamWidget({super.key});
 
   @override
-  State<VideoStreamWidget> createState() => VideoStreamWidgetState();
+  State<StreamWidget> createState() => StreamWidgetState();
 }
 
 List<Uint8List> images = [];
 late Uint8List imageBytes;
 
-class VideoStreamWidgetState extends State<VideoStreamWidget> {
+class StreamWidgetState extends State<StreamWidget> {
   //Uint8List imageBytes = Uint8List.fromList([]);
 
   /*void setImage(Uint8List message) {
