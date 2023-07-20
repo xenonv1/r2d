@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'VideoWidget.dart';
 import 'FunctionSettingsWidget.dart';
 import 'server.dart';
 import 'StreamWidget.dart';
@@ -42,15 +43,20 @@ final GoRouter _router = GoRouter(
         builder: (BuildContext context, GoRouterState state) {
           return const TextRecognitionWidget();
         }),
-        GoRoute(
+    GoRoute(
         path: '/facial-recognition',
         builder: (BuildContext context, GoRouterState state) {
           return  FacialRecognitionWidget();
         }),
-        GoRoute(
+    GoRoute(
         path: '/function-settings',
         builder: (BuildContext context, GoRouterState state) {
           return  FunctionSettingsWidget();
+        }),
+    GoRoute(
+        path: '/video',
+        builder: (BuildContext context, GoRouterState state) {
+          return const VideoWidget();
         }),
   ],
 );

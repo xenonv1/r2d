@@ -80,6 +80,11 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.mobile_screen_share),
+            title: const Text('Video'),
+            onTap: () => context.go('/video'),
+          ),
+          ListTile(
             leading: const Icon(Icons.numbers_rounded),
             title: Row(
               children: [
