@@ -83,12 +83,13 @@ class _VideoPageState extends State<VideoPage> {
           final image = img.decodeImage(bytes);
 
           // Rotate the image by 90 degrees
-          final rotatedImage = img.copyRotate(image!, 90);
+          final rotatedImage = img.copyRotate(image!, angle: 90);
 
           // Convert image to RGB bitmap
           final rgbImage =
               img.copyResize(rotatedImage, width: 135, height: 240);
-          final rgbBytes = rgbImage.getBytes(format: img.Format.rgb);
+          // final rgbBytes = rgbImage.getBytes(format: img.Format.rgb); should work but isnt. needs to be fixed in the future
+          final rgbBytes = rgbImage.getBytes(); // can be removed as soon as the above error got fixed
 
           // Convert Uint16List to byte array (Uint8List)
           final uint16List = Uint16List(rgbBytes.length ~/ 3);
